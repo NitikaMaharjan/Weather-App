@@ -2,7 +2,7 @@
 
 function displayData(data) {
     let array = ["latitude", "longitude", "resolvedAddress", "currentConditions", "days", "timezone"];
-    let array2 = ["conditions", "datetime", "humidity", "temp", "visibility", "windspeed", "precipprob"];
+    let array2 = ["conditions", "humidity", "temp", "visibility", "windspeed", "precipprob"];
     for(let key in data){
         if (array.includes(key)){
             if (key==="currentConditions"){
@@ -15,23 +15,23 @@ function displayData(data) {
                 }
             }
             if (key==="days"){
-                for(let innerkey2 in data[key]){
-                    if (innerkey2==="0"){
-                        for(let innerkey3 in data[key][innerkey2]){
-                            if (innerkey3==="hours"){
-                                for(let innerkey4 in data[key][innerkey2][innerkey3]){
-                                    console.log(innerkey4);
-                                    for(let innerkey5 in data[key][innerkey2][innerkey3][innerkey4]){
-                                        if (array2.includes(innerkey5)){
-                                            document.getElementById(innerkey5+"2").innerHTML=data[key][innerkey2][innerkey3][innerkey4][innerkey5];
-                                            console.log(innerkey5, data[key][innerkey2][innerkey3][innerkey4][innerkey5]);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                let hours = data["days"]["0"]["hours"];
+
+                let twentyfour = document.getElementById("twentyfour-hour");
+                
+                hours.forEach(hourData => {
+                    // hourData is object
+                    let hourNumber = document.createElement("h4");
+                    console.log(hourData.datetime);
+                    hourNumber.textContent = hourData.datetime;
+                    twentyfour.appendChild(hourNumber);
+                    array2.forEach(key => {
+                        let p = document.createElement("p");
+                        console.log(key, hourData[key]);
+                        p.textContent = `${key==="precipprob"?"Chances of Rain":key} ${hourData[key]}`;
+                        twentyfour.appendChild(p);
+                    });
+                });
             }
             if (key!=="currentConditions" && key!=="days"){
                 document.getElementById(key).innerHTML=data[key];
