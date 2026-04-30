@@ -1,5 +1,26 @@
 "use strict";
 
+(function(){
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+                const location = `${lat},${lon}`;
+                fetchData(location);
+            },
+            (error) => {
+                console.log("Error:", error.message);
+            }
+        );
+    } else {
+        console.log("Geolocation is not supported by this browser.");
+    }
+
+    const currentDateTime = new Date();
+    document.getElementById("current-datetime").innerHTML = currentDateTime;
+})();
+
 function displayData(data) {
     let array = ["latitude", "longitude", "resolvedAddress", "currentConditions", "days", "timezone"];
     let array2 = ["conditions", "humidity", "temp", "visibility", "windspeed", "precipprob"];
