@@ -18,7 +18,8 @@
     }
 
     let currentDateTime = new Date();
-    document.getElementById("current-datetime").innerHTML = currentDateTime;
+    document.getElementById("current-day").innerHTML = currentDateTime.toLocaleString("en-US", { weekday: "short", month: "short", day: "numeric", year: "numeric" });
+    document.getElementById("current-time").innerHTML = currentDateTime.toLocaleString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true });
 })();
 
 function displayData(data) {
@@ -42,9 +43,14 @@ function displayData(data) {
                 
                 hours.forEach(hourData => {
                     // hourData is object
+                    
+                    let today = new Date().toISOString().split("T")[0];
+                    let dateObj = new Date(`${today}T${hourData.datetime}`);
+                    
                     let hourNumber = document.createElement("h4");
-                    console.log(hourData.datetime);
-                    hourNumber.textContent = hourData.datetime;
+                    hourNumber.textContent = dateObj.toLocaleString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true });
+                    console.log(dateObj.toLocaleString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true }));                    
+
                     twentyfour.appendChild(hourNumber);
                     array2.forEach(key => {
                         let p = document.createElement("p");
