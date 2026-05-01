@@ -50,7 +50,7 @@ function updateText(id, value) {
 
 function displayCurrentConditions(data) {
     currentConditions.forEach(key => {
-        updateText(key, data[key]);
+        updateText(key, key==="temp"?data[key]+" °F":data[key]);
     });
 }
 
