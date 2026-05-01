@@ -1,15 +1,34 @@
 "use strict";
 
+function showAlert(message) {
+    let bg = document.getElementById("alert-background");
+    let alert = document.getElementById("alert");
+
+    alert.innerHTML = "";
+
+    bg.style.display = "block";
+
+    let p = document.createElement("p");
+    p.textContent = message;
+
+    alert.appendChild(p);
+}
+
 (function(){
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
+            // getCurrentPosition asks the browser for the user's location
             (position) => {
-                let lat = position.coords.latitude;
-                let lon = position.coords.longitude;
-                let location = `${lat},${lon}`;
+                // successCallback
+                // this function runs if location is successfully retrieved.
+                let latitude = position.coords.latitude;
+                let longitude = position.coords.longitude;
+                let location = `${latitude},${longitude}`;
                 fetchData(location);
             },
             (error) => {
+                // errorCallback
+                // this function runs if something goes wrong
                 console.log("Error:", error.message);
             }
         );
@@ -23,14 +42,14 @@
 })();
 
 function displayData(data) {
-    let array = ["latitude", "longitude", "resolvedAddress", "currentConditions", "days", "timezone"];
-    let array2 = ["conditions", "humidity", "temp", "visibility", "windspeed", "precipprob"];
+    let generalWeather = ["latitude", "longitude", "resolvedAddress", "currentConditions", "days", "timezone"];
+    let currentConditions = ["conditions", "humidity", "temp", "visibility", "windspeed", "precipprob"];
     for(let key in data){
-        if (array.includes(key)){
+        if (generalWeather.includes(key)){
             if (key==="currentConditions"){
-                console.log("current condiitions");
+                console.log("current conditions");
                 for(let innerkey in data[key]){
-                    if (array2.includes(innerkey)){
+                    if (currentConditions.includes(innerkey)){
                         document.getElementById(innerkey).innerHTML=data[key][innerkey];
                         console.log(innerkey, data[key][innerkey]);
                     }
@@ -52,7 +71,7 @@ function displayData(data) {
                     console.log(dateObj.toLocaleString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true }));                    
 
                     twentyfour.appendChild(hourNumber);
-                    array2.forEach(key => {
+                    currentConditions.forEach(key => {
                         let p = document.createElement("p");
                         console.log(key, hourData[key]);
                         p.textContent = `${key==="precipprob"?"Chances of Rain":key} ${hourData[key]}`;
@@ -66,20 +85,6 @@ function displayData(data) {
             }
         }
     }
-}
-
-function showAlert(message) {
-    let bg = document.getElementById("alert-background");
-    let alert = document.getElementById("alert");
-
-    alert.innerHTML = "";
-
-    bg.style.display = "block";
-
-    let p = document.createElement("p");
-    p.textContent = message;
-
-    alert.appendChild(p);
 }
 
 async function fetchData(location) {
@@ -109,4 +114,4 @@ document.getElementById("weatherForm").addEventListener("submit", handleUserInpu
 document.getElementById("alert-background").addEventListener("click", ()=>{
     document.getElementById("alert-background").style.display="none";
     document.getElementById("location").value="";
-})
+});
