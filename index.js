@@ -4,9 +4,9 @@
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             (position) => {
-                const lat = position.coords.latitude;
-                const lon = position.coords.longitude;
-                const location = `${lat},${lon}`;
+                let lat = position.coords.latitude;
+                let lon = position.coords.longitude;
+                let location = `${lat},${lon}`;
                 fetchData(location);
             },
             (error) => {
@@ -17,7 +17,7 @@
         console.log("Geolocation is not supported by this browser.");
     }
 
-    const currentDateTime = new Date();
+    let currentDateTime = new Date();
     document.getElementById("current-datetime").innerHTML = currentDateTime;
 })();
 
@@ -62,6 +62,20 @@ function displayData(data) {
     }
 }
 
+function showAlert(message) {
+    let bg = document.getElementById("alert-background");
+    let alert = document.getElementById("alert");
+
+    alert.innerHTML = "";
+
+    bg.style.display = "block";
+
+    let p = document.createElement("p");
+    p.textContent = message;
+
+    alert.appendChild(p);
+}
+
 async function fetchData(location) {
     try{
         const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=us&key=4TUZ9ERUN2ZP6N54MDMAQSUGU&contentType=json`);
@@ -72,6 +86,7 @@ async function fetchData(location) {
         console.log(data);
         displayData(data);
     }catch(error){
+        showAlert("The entered location does not exists!");
         console.log(error);
     }
 }
@@ -82,4 +97,10 @@ function handleUserInput(e) {
     console.log(userInput);
     fetchData(userInput);
 }
+
 document.getElementById("weatherForm").addEventListener("submit", handleUserInput);
+
+document.getElementById("alert-background").addEventListener("click", ()=>{
+    document.getElementById("alert-background").style.display="none";
+    document.getElementById("location").value="";
+})
