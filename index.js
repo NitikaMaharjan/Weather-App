@@ -1,5 +1,7 @@
 "use strict";
 
+const currentConditions = ["conditions", "humidity", "temp", "visibility", "windspeed", "precipprob"];
+
 function showAlert(message) {
     let bg = document.getElementById("alert-background");
     let alert = document.getElementById("alert");
@@ -41,50 +43,48 @@ function showAlert(message) {
     document.getElementById("current-time").innerHTML = currentDateTime.toLocaleString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true });
 })();
 
+function updateText(id, value) {
+    const element = document.getElementById(id);
+    element.textContent = value;
+}
+
+function displayCurrentConditions(data) {
+    currentConditions.forEach(key => {
+        updateText(key, data[key]);
+    });
+}
+
+function displayHourly(hours) {
+    const twentyfourcontainer = document.getElementById("twentyfour-hour");
+    const hour = new Date().toISOString().split("T")[0];
+
+    hours.forEach(hourData => {
+        const dateObj = new Date(`${hour}T${hourData.datetime}`);
+
+        const hourElement = document.createElement("h4");
+        hourElement.textContent = dateObj.toLocaleString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true });
+
+        twentyfourcontainer.appendChild(hourElement);
+
+        currentConditions.forEach(key => {
+            const p = document.createElement("p");
+            p.textContent = `${key==="precipprob"?"Chances of Rain":key} ${hourData[key]}`;
+            twentyfourcontainer.appendChild(p);
+        });
+    });
+}
+
 function displayData(data) {
-    let generalWeather = ["latitude", "longitude", "resolvedAddress", "currentConditions", "days", "timezone"];
-    let currentConditions = ["conditions", "humidity", "temp", "visibility", "windspeed", "precipprob"];
-    for(let key in data){
-        if (generalWeather.includes(key)){
-            if (key==="currentConditions"){
-                console.log("current conditions");
-                for(let innerkey in data[key]){
-                    if (currentConditions.includes(innerkey)){
-                        document.getElementById(innerkey).innerHTML=data[key][innerkey];
-                        console.log(innerkey, data[key][innerkey]);
-                    }
-                }
-            }
-            if (key==="days"){
-                let hours = data["days"]["0"]["hours"];
+    const { latitude, longitude, resolvedAddress, currentConditions, days, timezone } = data;
 
-                let twentyfour = document.getElementById("twentyfour-hour");
-                
-                hours.forEach(hourData => {
-                    // hourData is object
-                    
-                    let today = new Date().toISOString().split("T")[0];
-                    let dateObj = new Date(`${today}T${hourData.datetime}`);
-                    
-                    let hourNumber = document.createElement("h4");
-                    hourNumber.textContent = dateObj.toLocaleString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true });
-                    console.log(dateObj.toLocaleString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true }));                    
+    updateText("latitude", latitude);
+    updateText("longitude", longitude);
+    updateText("resolvedAddress", resolvedAddress);
+    updateText("timezone", timezone);
 
-                    twentyfour.appendChild(hourNumber);
-                    currentConditions.forEach(key => {
-                        let p = document.createElement("p");
-                        console.log(key, hourData[key]);
-                        p.textContent = `${key==="precipprob"?"Chances of Rain":key} ${hourData[key]}`;
-                        twentyfour.appendChild(p);
-                    });
-                });
-            }
-            if (key!=="currentConditions" && key!=="days"){
-                document.getElementById(key).innerHTML=data[key];
-                console.log(key, data[key]);
-            }
-        }
-    }
+    displayCurrentConditions(currentConditions);
+
+    displayHourly(days[0].hours);
 }
 
 async function fetchData(location) {
