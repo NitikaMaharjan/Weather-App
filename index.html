@@ -3,66 +3,77 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Weather App using JavaScript">
+        <meta name="description" content="SkyView Weather App using JavaScript">
         <meta name="author" content="Nitika Maharjan">
-        <title>Weather App</title>
+        <title>SkyView Weather App</title>
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <form id="weatherForm">
-            <label for="location">Enter location</label>
-            <input type="text" id="location"/>
-            
-            <input type="submit" value="Get Weather"/>
-        </form>
- 
-        <div id="today-weather">
-            <h4 id="current-day"></h4>
-            <h4 id="current-time"></h4>
-            <div class="weather-data-row">
-                <p>Latitude</p>
-                <p id="latitude"></p>
-            </div>
-            <div class="weather-data-row">
-                <p>Longitude</p>
-                <p id="longitude"></p>
-            </div>
-            <div class="weather-data-row">
-                <p>Resolved Address</p>
-                <p id="resolvedAddress"></p>
-            </div>
-            <div class="weather-data-row">
-                <p>Timezone</p>
-                <p id="timezone"></p>
-            </div>
-            <div class="weather-data-row">
-                <p>Conditions</p>
-                <p id="conditions"></p>
-            </div>
-            <div class="weather-data-row">
-                <p>Humidity</p>
-                <p id="humidity"></p>
-            </div>
-            <div class="weather-data-row">
-                <p>Temp</p>
-                <p id="temp"></p>
-            </div>
-            <div class="weather-data-row">
-                <p>Visibility</p>
-                <p id="visibility"></p>
-            </div>
-            <div class="weather-data-row">
-                <p>Wind Speed</p>
-                <p id="windspeed"></p>
-            </div>
-            <div class="weather-data-row">
-                <p>Chances of Rain</p>
-                <p id="precipprob"></p>
-            </div>
+        <div class="navbar">
+            <h3>SkyView Weather</h3>
+            <form id="weatherForm">                
+                <div class="input-bar" id="input-bar">
+                    <input type="text" id="location" placeholder="Enter location..." onfocus="document.getElementById('input-bar').style.border='2px solid #4facfe'" onblur="document.getElementById('input-bar').style.border='2px solid rgba(135, 206, 250, 0.671)'"/>
+                    <img src="./images/close.png" alt="close icon" class="close-btn" id="close-btn" style="width: 16px; height: auto; cursor: pointer; opacity: 0%;" onclick="handleClear()"/>
+                </div>
+                <input type="submit" value="Search"/>
+            </form>
         </div>
 
-        <h3>24 hour Weather Data</h3>
-        <div id="twentyfour-hour"></div>
+        <div class="container">
+            <div class="container-one">
+                <h4 id="current-day"></h4>
+                <h4 id="current-time"></h4>
+                <div class="weather-data-row">
+                    <p>Timezone</p>
+                    <p id="timezone"></p>
+                </div>
+                <div class="weather-data-row">
+                    <p>Resolved Address</p>
+                    <p id="resolvedAddress"></p>
+                </div> 
+                <div class="weather-data-row">
+                    <p>Conditions</p>
+                    <p id="conditions"></p>
+                </div>
+                <div class="weather-data-row">
+                    <p>Humidity</p>
+                    <p id="humidity"></p>
+                </div>
+                <div class="weather-data-row">
+                    <p>Temp</p>
+                    <p id="temp"></p>
+                </div>
+                <div class="weather-data-row">
+                    <p>Chances of Rain</p>
+                    <p id="precipprob"></p>
+                </div>
+            </div>
+            
+            <div class="container-two">
+                <div class="weather-data-row">
+                    <p>Latitude</p>
+                    <p id="latitude"></p>
+                </div>
+                <div class="weather-data-row">
+                    <p>Longitude</p>
+                    <p id="longitude"></p>
+                </div>                               
+                <div class="weather-data-row">
+                    <p>Visibility</p>
+                    <p id="visibility"></p>
+                </div>
+                <div class="weather-data-row">
+                    <p>Wind Speed</p>
+                    <p id="windspeed"></p>
+                </div>
+            </div>
+        </div>
+ 
+        <h4>Hourly Forecast</h4>
+        <div class="twentyfour">
+            <div id="twentyfour-hour"></div>
+        </div>
 
         <div id="alert-background">
             <div id="alert">

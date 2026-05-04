@@ -1,6 +1,95 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    padding: 20px;
+    background-color: rgba(176, 196, 222, 0.274);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+  -webkit-text-fill-color: black;
+  transition: white 5000s ease-in-out 0s;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+form {
+    display: flex;
+    gap: 16px;
+}
+
+.input-bar {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 2px 12px;
+    border-radius: 18px;
+    border: 2px solid rgba(135, 206, 250, 0.671);
+}
+
+form input[type="text"] {
+    border: none;
+    outline: none;
+    padding: 12px 6px 12px 0px;
+}
+
+form input[type="submit"] {
+    padding: 12px 18px;
+    border-radius: 18px;
+    cursor: pointer;
+    border: none;
+    background: #4facfe;
+    color: white;
+    font-weight: bold;
+    transition: 0.2s ease;
+}
+
+form input[type="submit"]:hover {
+    background: #00c6ff;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.container-one, .container-two {
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.navbar,
+.container-one,
+.container-two {
+    background: white;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 16px;
+}
+
 .weather-data-row {
     display: flex;
-    gap: 0.5rem;
+    gap: 12px;
 }
 
 #alert-background {
@@ -11,4 +100,12 @@
     left: 0;
     position: fixed;
     background: grey;
+}
+
+.twentyfour {
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
