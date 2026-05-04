@@ -10,47 +10,68 @@
     </head>
     <body>
         <div class="navbar">
-            <h3>SkyView Weather</h3>
+            <h2>SkyView Weather</h2>
             <form id="weatherForm">                
                 <div class="input-bar" id="input-bar">
+                    <img src="./images/search.png" alt="search icon" style="width: 18px; height: auto; opacity: 50%;"/>
                     <input type="text" id="location" placeholder="Enter location..." onfocus="document.getElementById('input-bar').style.border='2px solid #4facfe'" onblur="document.getElementById('input-bar').style.border='2px solid rgba(135, 206, 250, 0.671)'"/>
-                    <img src="./images/close.png" alt="close icon" class="close-btn" id="close-btn" style="width: 16px; height: auto; cursor: pointer; opacity: 0%;" onclick="handleClear()"/>
+                    <img src="./images/close.png" alt="close icon" class="close-btn" id="close-btn" style="width: 14px; height: auto; cursor: pointer; opacity: 0%;" onclick="handleClear()"/>
                 </div>
                 <input type="submit" value="Search"/>
             </form>
+            <div style="display: flex; align-items: center; gap: 16px;">
+                <h4 id="current-time"></h4>
+                <button style="border: none; background-color: transparent; padding: 4px; cursor: pointer;"><img src="./images/moon.png" alt="moon icon" style="width: 26px; height: auto;"/></button>
+            </div>
         </div>
 
         <div class="container">
             <div class="container-one">
-                <h4 id="current-day"></h4>
-                <h4 id="current-time"></h4>
-                <div class="weather-data-row">
-                    <p>Timezone</p>
-                    <p id="timezone"></p>
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px;">
+                    <div class="location">
+                        <img src="./images/location.png" alt="location icon" style="width: 20px; height: auto;"/>
+                        <p id="timezone"></p>
+                    </div>
+                    <h4 id="current-day"></h4>
                 </div>
-                <div class="weather-data-row">
-                    <p>Resolved Address</p>
-                    <p id="resolvedAddress"></p>
-                </div> 
-                <div class="weather-data-row">
-                    <p>Conditions</p>
-                    <p id="conditions"></p>
+                <div style="text-align: center;">
+                    <img id="weather-icon" src="./images/cloudy.png" alt="weather icon" style="width: 40px; height: auto;"/>
+                    <p id="conditions" style="font-size: 20px; margin-bottom: 28px;"></p>
                 </div>
-                <div class="weather-data-row">
-                    <p>Humidity</p>
-                    <p id="humidity"></p>
-                </div>
-                <div class="weather-data-row">
-                    <p>Temp</p>
-                    <p id="temp"></p>
-                </div>
-                <div class="weather-data-row">
-                    <p>Chances of Rain</p>
-                    <p id="precipprob"></p>
+
+                <div style="display: flex; gap: 12px;">
+                    <div class="weather-cube">
+                        <p style="font-size: 14px;">Temp</p>
+                        <div style="display: flex;">
+                            <p id="temp" style="font-size: 20px;"></p><p style="font-size: 20px;">&nbsp;°F</p>
+                        </div>
+                    </div>
+                    <div class="weather-cube">
+                        <p style="font-size: 14px;">Visibility</p>
+                        <div style="display: flex;">
+                            <p id="visibility" style="font-size: 20px;"></p><p style="font-size: 20px;">&nbsp;km</p>
+                        </div>
+                    </div>
+                    <div class="weather-cube">
+                        <p style="font-size: 14px;">Humidity</p>
+                        <div style="display: flex;">
+                            <p id="humidity" style="font-size: 20px;"></p><p style="font-size: 20px;">&nbsp;%</p>
+                        </div>
+                    </div>
+                    <div class="weather-cube">
+                        <p style="font-size: 14px;">Chances of Rain</p>
+                        <div style="display: flex;">
+                            <p id="precipprob" style="font-size: 20px;"></p><p style="font-size: 20px;">&nbsp;%</p>
+                        </div>                        
+                    </div>
                 </div>
             </div>
             
             <div class="container-two">
+                <div class="weather-data-row">
+                    <p>Resolved Address</p>
+                    <p id="resolvedAddress"></p>
+                </div>
                 <div class="weather-data-row">
                     <p>Latitude</p>
                     <p id="latitude"></p>
@@ -59,14 +80,6 @@
                     <p>Longitude</p>
                     <p id="longitude"></p>
                 </div>                               
-                <div class="weather-data-row">
-                    <p>Visibility</p>
-                    <p id="visibility"></p>
-                </div>
-                <div class="weather-data-row">
-                    <p>Wind Speed</p>
-                    <p id="windspeed"></p>
-                </div>
             </div>
         </div>
  
