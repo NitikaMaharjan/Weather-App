@@ -115,3 +115,19 @@ document.getElementById("alert-background").addEventListener("click", ()=>{
     document.getElementById("alert-background").style.display="none";
     document.getElementById("location").value="";
 });
+
+const input = document.getElementById("location");
+const closeBtn = document.getElementById("close-btn");
+
+input.addEventListener("input", () => {
+    if (input.value.trim() !== "") {
+        closeBtn.style.opacity = "70%";
+    } else {
+        closeBtn.style.opacity = "0%";
+    }
+});
+
+function handleClear() {
+    input.value = "";
+    closeBtn.style.opacity = "0%";
+}
