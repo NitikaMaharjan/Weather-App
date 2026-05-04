@@ -1,6 +1,22 @@
 "use strict";
 
-const currentConditions = ["conditions", "humidity", "temp", "visibility", "windspeed", "precipprob"];
+const currentConditions = ["conditions", "humidity", "temp", "visibility", "precipprob"];
+
+const weatherIcons = {
+    "clear": "./images/sunny.png",
+    "sunny": "./images/sunny.png",
+    "partly cloudy": "./images/partly-cloudy.png",
+    "cloudy": "./images/cloudy.png",
+    "overcast": "./images/cloudy.png",
+    "rain": "./images/rainy.png",
+    "rainy": "./images/rainy.png",
+    "showers": "./images/rainy.png",
+    "thunderstorm": "./images/stormy.png",
+    "storm": "./images/stormy.png",
+    "snow": "./images/snowy.png",
+    "fog": "./images/foggy.png",
+    "wind": "./images/windy.png"
+};
 
 function showAlert(message) {
     let bg = document.getElementById("alert-background");
@@ -50,7 +66,7 @@ function updateText(id, value) {
 
 function displayCurrentConditions(data) {
     currentConditions.forEach(key => {
-        updateText(key, key==="temp"?data[key]+" °F":data[key]);
+        updateText(key, data[key]);
     });
 }
 
@@ -83,6 +99,8 @@ function displayData(data) {
     updateText("timezone", timezone);
 
     displayCurrentConditions(currentConditions);
+
+    updateWeatherIcon(currentConditions.conditions);
 
     displayHourly(days[0].hours);
 }
@@ -121,7 +139,7 @@ const closeBtn = document.getElementById("close-btn");
 
 input.addEventListener("input", () => {
     if (input.value.trim() !== "") {
-        closeBtn.style.opacity = "70%";
+        closeBtn.style.opacity = "80%";
     } else {
         closeBtn.style.opacity = "0%";
     }
@@ -130,4 +148,22 @@ input.addEventListener("input", () => {
 function handleClear() {
     input.value = "";
     closeBtn.style.opacity = "0%";
+    location.reload();
+}
+
+function updateWeatherIcon(condition) {
+    const icon = document.getElementById("weather-icon");
+
+    if (!condition) return;
+
+    const key = condition.toLowerCase();
+
+    for (let k in weatherIcons) {
+        if (key.includes(k)) {
+            icon.src = weatherIcons[k];
+            return;
+        }
+    }
+
+    icon.src = "./images/cloudy.png";
 }
