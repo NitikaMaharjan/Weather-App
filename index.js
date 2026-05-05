@@ -11,11 +11,27 @@ const weatherIconRules = [
     { pattern: /fog/i, icon: "./images/foggy.png" },
     { pattern: /wind/i, icon: "./images/windy.png" }
 ];
+const weatherIconRulesDark = [
+    { pattern: /clear|sunny/i, icon: "./images/sunnylight.png" },
+    { pattern: /partly|cloudy/i, icon: "./images/partly-cloudylight.png" },
+    { pattern: /rain/i, icon: "./images/rainylight.png" },
+    { pattern: /overcast/i, icon: "./images/cloudylight.png" },
+    { pattern: /thunder|storm/i, icon: "./images/stormylight.png" },
+    { pattern: /snow/i, icon: "./images/snowylight.png" },
+    { pattern: /fog/i, icon: "./images/foggylight.png" },
+    { pattern: /wind/i, icon: "./images/windylight.png" }
+];
 const metricIcons = {
     temp: "./images/temp.png",
     windspeed: "./images/wind.png",
     humidity: "./images/humidity.png",
     precipprob: "./images/rain.png"
+};
+const metricIconsDark = {
+    temp: "./images/templight.png",
+    windspeed: "./images/windlight.png",
+    humidity: "./images/humiditylight.png",
+    precipprob: "./images/rainlight.png"
 };
 
 const bg = document.getElementById("alert-background");
@@ -81,18 +97,34 @@ function displayCurrentConditions(data) {
 
 function updateWeatherIcon(conditions) {
     const icon = document.getElementById("weather-icon");
+    
+    let match;
 
-    const match = weatherIconRules.find(rule =>
-        rule.pattern.test(conditions)
-    );
+    if (document.body.classList.contains("dark")) {
+        match = weatherIconRulesDark.find(rule =>
+            rule.pattern.test(conditions)
+        );
+    } else {
+        match = weatherIconRules.find(rule =>
+            rule.pattern.test(conditions)
+        );
+    }
 
     icon.src = match ? match.icon : "./images/cloudy.png";
 }
 
 function getWeatherIcon(conditions) {
-    const match = weatherIconRules.find(rule =>
-        rule.pattern.test(conditions)
-    );
+    let match;
+
+    if (document.body.classList.contains("dark")) {
+        match = weatherIconRulesDark.find(rule =>
+            rule.pattern.test(conditions)
+        );
+    } else {
+        match = weatherIconRules.find(rule =>
+            rule.pattern.test(conditions)
+        );
+    }
 
     return match ? match.icon : "./images/cloudy.png";
 }
@@ -127,7 +159,7 @@ function displayHourly(hours) {
 
             if (key!=="conditions") {
                 const icon = document.createElement("img");
-                icon.src = metricIcons[key];
+                icon.src = document.body.classList.contains("dark") ? metricIconsDark[key] : metricIcons[key];
                 icon.title = `${key==="temp"?"Temperature":key==="windspeed"?"Wind speed":key==="humidity"?"Humidity":key==="precipprob"?"Chances of Rain":key}`;
                 icon.alt = key;
                 icon.classList.add("metric-icon");
@@ -150,7 +182,8 @@ function displayData(data) {
     updateText("timezone", data.timezone);
     displayCurrentConditions(data.currentConditions);
     updateWeatherIcon(data.currentConditions.conditions);
-    displayHourly(data.days[0].hours);
+    window.__lastHours = data.days[0].hours;
+    displayHourly(window.__lastHours);
 }
 
 async function fetchData(location) {
@@ -204,5 +237,14 @@ toggleBtn.addEventListener("click", () => {
         document.getElementById("search").src="./images/search.png";
         document.getElementById("close-btn").src="./images/close.png";
         document.getElementById("location-icon").src="./images/location.png";
+    }
+
+    const conditions = document.getElementById("conditions").textContent;
+    if (conditions) updateWeatherIcon(conditions);
+
+    const hoursContainer = document.querySelectorAll(".hour-card");
+    if (hoursContainer.length > 0) {
+        const hours = window.__lastHours;
+        if (hours) displayHourly(hours);
     }
 });
