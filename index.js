@@ -1,6 +1,6 @@
 "use strict";
 
-const currentConditions = ["conditions", "humidity", "temp", "visibility", "precipprob"];
+const currentConditions = ["conditions", "temp", "windspeed", "humidity", "precipprob"];
 const weatherIconRules = [
     { pattern: /clear|sunny/i, icon: "./images/sunny.png" },
     { pattern: /partly|cloudy/i, icon: "./images/partly-cloudy.png" },
@@ -11,6 +11,12 @@ const weatherIconRules = [
     { pattern: /fog/i, icon: "./images/foggy.png" },
     { pattern: /wind/i, icon: "./images/windy.png" }
 ];
+const metricIcons = {
+    temp: "./images/temp.png",
+    windspeed: "./images/wind.png",
+    humidity: "./images/humidity.png",
+    precipprob: "./images/rain.png"
+};
 
 const bg = document.getElementById("alert-background");
 const input = document.getElementById("location");
@@ -82,23 +88,60 @@ function updateWeatherIcon(conditions) {
     icon.src = match ? match.icon : "./images/cloudy.png";
 }
 
+function getWeatherIcon(conditions) {
+    const match = weatherIconRules.find(rule =>
+        rule.pattern.test(conditions)
+    );
+
+    return match ? match.icon : "./images/cloudy.png";
+}
+
 function displayHourly(hours) {
-    const twentyfourcontainer = document.getElementById("twentyfour-hour");
+    const twentyfour_hour = document.getElementById("twentyfour-hour");
     const today = new Date().toLocaleDateString("en-CA");
+
+    twentyfour_hour.innerHTML = "";
 
     hours.forEach(hourData => {
         const dateObj = new Date(`${today}T${hourData.datetime}`);
 
+        const card = document.createElement("div");
+        card.classList.add("hour-card");
+
         const hourElement = document.createElement("h4");
         hourElement.textContent = dateObj.toLocaleString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true });
 
-        twentyfourcontainer.appendChild(hourElement);
+        card.appendChild(hourElement);
+
+        const img = document.createElement("img");
+        img.src = getWeatherIcon(hourData.conditions);
+        img.alt = hourData.conditions;
+        img.classList.add("hour-icon");
+
+        card.appendChild(img);
 
         currentConditions.forEach(key => {
-            const p = document.createElement("p");
-            p.textContent = `${key==="precipprob"?"Chances of Rain":key} ${hourData[key]}`;
-            twentyfourcontainer.appendChild(p);
+            const row = document.createElement("div");
+            row.classList.add("hour-row");
+
+            if (key!=="conditions") {
+                const icon = document.createElement("img");
+                icon.src = metricIcons[key];
+                icon.title = `${key==="temp"?"Temperature":key==="windspeed"?"Wind speed":key==="humidity"?"Humidity":key==="precipprob"?"Chances of Rain":key}`;
+                icon.alt = key;
+                icon.classList.add("metric-icon");
+                row.appendChild(icon);
+            }
+
+            const span = document.createElement("span");
+            span.textContent = hourData[key]+ `${key==="conditions"?"":key==="temp"?" °F":key==="windspeed"?" km":" %"}`;
+            span.classList.add(key);
+    
+            row.appendChild(span);
+            card.appendChild(row);
         });
+
+        twentyfour_hour.appendChild(card);
     });
 }
 
