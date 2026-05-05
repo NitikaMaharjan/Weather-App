@@ -196,7 +196,13 @@ toggleBtn.addEventListener("click", () => {
 
     if (document.body.classList.contains("dark")) {
         document.getElementById("theme-icon").src="./images/sun.png";
+        document.getElementById("search").src="./images/searchlight.png";
+        document.getElementById("close-btn").src="./images/closelight.png";
+        document.getElementById("location-icon").src="./images/locationlight.png";
     } else {
         document.getElementById("theme-icon").src="./images/moon.png";
+        document.getElementById("search").src="./images/search.png";
+        document.getElementById("close-btn").src="./images/close.png";
+        document.getElementById("location-icon").src="./images/location.png";
     }
 });

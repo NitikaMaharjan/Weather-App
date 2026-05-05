@@ -13,7 +13,7 @@
             <h2>SkyView Weather</h2>
             <form id="weatherForm">                
                 <div class="input-bar" id="input-bar">
-                    <img src="./images/search.png" alt="search icon" style="width: 18px; height: auto; opacity: 80%;"/>
+                    <img src="./images/search.png" id="search" alt="search icon" style="width: 18px; height: auto; opacity: 80%;"/>
                     <input type="text" id="location" placeholder="Enter location..." onfocus="document.getElementById('input-bar').style.border='2px solid #13759a'" onblur="document.getElementById('input-bar').style.border='2px solid #5096ad'"/>
                     <img src="./images/close.png" alt="close icon" class="close-btn" id="close-btn" style="width: 14px; height: auto; opacity: 0%;" onclick="handleClear()"/>
                 </div>
@@ -30,7 +30,7 @@
             <div class="container-one">
                 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px;">
                     <div class="location-tag">
-                        <img src="./images/location.png" alt="location icon" style="width: 20px; height: auto;"/>
+                        <img src="./images/location.png" id="location-icon" alt="location icon" style="width: 20px; height: auto;"/>
                         <p id="timezone" style="font-size: 14px;"></p>
                     </div>
                     <h4 id="current-day"></h4>
