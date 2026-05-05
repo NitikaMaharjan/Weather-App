@@ -19,14 +19,17 @@
                 </div>
                 <input type="submit" value="Search"/>
             </form>
-            <h4 id="current-time"></h4>
+            <div style="display: flex; align-items: center; gap: 18px;">
+                <h4 id="current-time"></h4>
+                <button id="theme-toggle"><img id="theme-icon" src="./images/moon.png" alt="theme icon" style="width: 24px; height: auto;"/></button>
+            </div>
         </div>
 
         <div class="container">
 
             <div class="container-one">
                 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px;">
-                    <div style="display: flex; background-color: #cfe9f5; padding: 12px 18px; width: fit-content; border-radius: 24px; gap: 12px;">
+                    <div class="location-tag">
                         <img src="./images/location.png" alt="location icon" style="width: 20px; height: auto;"/>
                         <p id="timezone" style="font-size: 14px;"></p>
                     </div>

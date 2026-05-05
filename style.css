@@ -1,3 +1,12 @@
+:root {
+    --bg-color: #e4f1f7;
+    --card-color: #ffffff;
+    --text-color: #000;
+    --primary-color: #5096ad;
+    --secondary-color: #cfe9f5;
+    --image-url: url(./images/weather.jpg);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,26 +15,36 @@
 
 body {
     padding: 20px;
-    background-color: #e4f1f7;
+    background-color: var(--bg-color);
     display: flex;
     flex-direction: column;
     gap: 24px;
     overflow-y: scroll;
+    color: var(--text-color);
+}
+
+body.dark {
+    --bg-color: #50647c;
+    --card-color: #162841;
+    --text-color: #f1f1f1;
+    --primary-color: #355472;
+    --secondary-color: #020a1f;
+    --image-url: url(./images/weatherdark.png);
 }
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
-  -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+  -webkit-box-shadow: 0 0 0px 1000px var(--card-color) inset !important;
   -webkit-text-fill-color: black;
-  transition: white 5000s ease-in-out 0s;
+  transition: var(--card-color) 5000s ease-in-out 0s;
 }
 
 .navbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: white;
+    background-color: var(--card-color);
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.1);
@@ -41,7 +60,7 @@ form {
     align-items: center;
     padding: 2px 12px;
     border-radius: 12px;
-    border: 2px solid #5096ad;
+    border: 2px solid var(--primary-color);
 }
 
 form input[type="text"] {
@@ -49,6 +68,8 @@ form input[type="text"] {
     outline: none;
     padding: 12px 6px;
     width: 200px;
+    background-color: transparent;
+    color: var(--text-color);
 }
 
 form input[type="submit"] {
@@ -56,7 +77,7 @@ form input[type="submit"] {
     border-radius: 24px;
     cursor: pointer;
     border: none;
-    background: #5096ad;
+    background: var(--primary-color);
     color: white;
     font-weight: bold;
     transition: 0.2s ease;
@@ -73,10 +94,19 @@ form input[type="submit"]:hover {
 }
 
 .container-one {
-    background-color: white;
+    background-color: var(--card-color);
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.location-tag {
+    display: flex;
+    background-color: var(--secondary-color);
+    padding: 12px 18px;
+    width: fit-content;
+    border-radius: 24px;
+    gap: 12px;
 }
 
 .weather-cube {
@@ -86,14 +116,14 @@ form input[type="submit"]:hover {
     align-items: center;
     width: 120px;
     height: 120px;
-    background-color: #cfe9f5;
+    background-color: var(--secondary-color);
     border-radius: 12px;
     padding: 20px;
 }
 
 .container-two {
     border-radius: 12px;
-    background-image: url(./images/weather.jpg);
+    background-image: var(--image-url);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -128,8 +158,12 @@ form input[type="submit"]:hover {
     justify-content: space-between;
 }
 
+.alert-box p {
+    color: black;
+}
+
 .hourly-forecast {
-    background-color: white;
+    background-color: var(--card-color);
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0px 8px 20px rgba(0,0,0,0.1);
@@ -145,11 +179,11 @@ form input[type="submit"]:hover {
     white-space: nowrap;
     scrollbar-width: none;
 }
- 
+
 .hour-card {
     padding: 14px;
     min-width: 180px;
-    background-color: #cfe9f5;
+    background-color: var(--secondary-color);
     border-radius: 12px;
     display: flex;
     flex-direction: column;
@@ -182,4 +216,17 @@ form input[type="submit"]:hover {
     margin-bottom: 12px;
     width: 100%;
     text-align: center;
+}
+
+#theme-toggle {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    padding: 8px 10px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#theme-toggle:hover {
+    background-color: var(--bg-color);
 }
