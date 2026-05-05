@@ -13,35 +13,34 @@
             <h2>SkyView Weather</h2>
             <form id="weatherForm">                
                 <div class="input-bar" id="input-bar">
-                    <img src="./images/search.png" alt="search icon" style="width: 18px; height: auto; opacity: 50%;"/>
-                    <input type="text" id="location" placeholder="Enter location..." onfocus="document.getElementById('input-bar').style.border='2px solid #4facfe'" onblur="document.getElementById('input-bar').style.border='2px solid rgba(135, 206, 250, 0.671)'"/>
-                    <img src="./images/close.png" alt="close icon" class="close-btn" id="close-btn" style="width: 14px; height: auto; cursor: pointer; opacity: 0%;" onclick="handleClear()"/>
+                    <img src="./images/search.png" alt="search icon" style="width: 18px; height: auto; opacity: 80%;"/>
+                    <input type="text" id="location" placeholder="Enter location..." onfocus="document.getElementById('input-bar').style.border='2px solid #13759a'" onblur="document.getElementById('input-bar').style.border='2px solid #5096ad'"/>
+                    <img src="./images/close.png" alt="close icon" class="close-btn" id="close-btn" style="width: 14px; height: auto; opacity: 0%;" onclick="handleClear()"/>
                 </div>
                 <input type="submit" value="Search"/>
             </form>
-            <div style="display: flex; align-items: center; gap: 16px;">
-                <h4 id="current-time"></h4>
-                <button style="border: none; background-color: transparent; padding: 4px; cursor: pointer;"><img src="./images/moon.png" alt="moon icon" style="width: 26px; height: auto;"/></button>
-            </div>
+            <h4 id="current-time"></h4>
         </div>
 
         <div class="container">
+
             <div class="container-one">
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px;">
-                    <div class="location">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px;">
+                    <div style="display: flex; background-color: #cfe9f5; padding: 12px 18px; width: fit-content; border-radius: 24px; gap: 12px;">
                         <img src="./images/location.png" alt="location icon" style="width: 20px; height: auto;"/>
-                        <p id="timezone"></p>
+                        <p id="timezone" style="font-size: 14px;"></p>
                     </div>
                     <h4 id="current-day"></h4>
                 </div>
-                <div style="text-align: center;">
+
+                <div style="text-align: center; margin-bottom: 30px;">
                     <img id="weather-icon" src="./images/cloudy.png" alt="weather icon" style="width: 40px; height: auto;"/>
-                    <p id="conditions" style="font-size: 20px; margin-bottom: 28px;"></p>
+                    <p id="conditions" style="font-size: 20px;"></p>
                 </div>
 
                 <div style="display: flex; gap: 12px;">
                     <div class="weather-cube">
-                        <p style="font-size: 14px;">Temp</p>
+                        <p style="font-size: 14px;">Temperature</p>
                         <div style="display: flex;">
                             <p id="temp" style="font-size: 20px;"></p><p style="font-size: 20px;">&nbsp;°F</p>
                         </div>
@@ -67,29 +66,27 @@
                 </div>
             </div>
             
-            <div class="container-two">
-                <div class="weather-data-row">
-                    <p>Resolved Address</p>
-                    <p id="resolvedAddress"></p>
-                </div>
-                <div class="weather-data-row">
-                    <p>Latitude</p>
-                    <p id="latitude"></p>
-                </div>
-                <div class="weather-data-row">
-                    <p>Longitude</p>
-                    <p id="longitude"></p>
-                </div>                               
+            <div class="container-two">                              
             </div>
         </div>
  
         <h4>Hourly Forecast</h4>
+
         <div class="twentyfour">
-            <div id="twentyfour-hour"></div>
+            <div id="twentyfour-hour">
+            </div>
         </div>
 
         <div id="alert-background">
             <div id="alert">
+                <div class="alert-box">
+                    <div style="display: flex; align-items: center; gap: 12px;">                        
+                        <img src="./images/alert.png" alt="alert icon" style="width: 20px; height: auto;"/>
+                        <div id="alert-msg">
+                        </div>
+                    </div>
+                    <img src="./images/close.png" alt="close icon" style="width: 14px; height: auto; cursor: pointer;" onclick="handleCloseAlert()"/>
+                </div>
             </div>
         </div>
 
