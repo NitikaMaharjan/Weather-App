@@ -21,6 +21,7 @@ const metricIcons = {
 const bg = document.getElementById("alert-background");
 const input = document.getElementById("location");
 const closeBtn = document.getElementById("close-btn");
+const toggleBtn = document.getElementById("theme-toggle");
 
 function showAlert(message) {
     bg.style.display = "block";
@@ -189,3 +190,13 @@ function handleClear() {
     input.value = "";
     closeBtn.style.opacity = "0%";
 }
+
+toggleBtn.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+
+    if (document.body.classList.contains("dark")) {
+        document.getElementById("theme-icon").src="./images/sun.png";
+    } else {
+        document.getElementById("theme-icon").src="./images/moon.png";
+    }
+});
