@@ -167,7 +167,7 @@ function displayHourly(hours) {
             }
 
             const span = document.createElement("span");
-            span.textContent = hourData[key]+ `${key==="conditions"?"":key==="temp"?" °F":key==="windspeed"?" km":" %"}`;
+            span.textContent = hourData[key]+ `${key==="conditions"?"":key==="temp"?" °F":key==="windspeed"?" km/h":" %"}`;
             span.classList.add(key);
     
             row.appendChild(span);
