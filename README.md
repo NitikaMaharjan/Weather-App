@@ -11,3 +11,7 @@ SkyView Weather App is a website built using **HTML, CSS, and JavaScript**. It f
 * Search weather by location
 * Displays temperature, wind speed, humidity and chances of rain
 * 24-hour weather forecast
+
+## Project URL
+
+[https://roadmap.sh/projects/weather-app](https://roadmap.sh/projects/weather-app)
