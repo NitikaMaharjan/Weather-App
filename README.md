@@ -4,7 +4,7 @@ SkyView Weather App is a website built using **HTML, CSS, and JavaScript**. It f
 
 ## Live Demo
 
-[View Project Here](https://nitikamaharjan.github.io/Weather-App/)
+[https://nitikamaharjan.github.io/Weather-App/](https://nitikamaharjan.github.io/Weather-App/)
 
 ## Features
 
